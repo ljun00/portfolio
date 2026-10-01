@@ -1,3 +1,5 @@
+// Sections of this file: 1) photo picker  2) scroll effects  3) section reveal  4) nav highlight  5) project switcher  6) hero typing.
+// Lines marked EDIT are the ones you may want to change.
 (function(){
   // Read the visitor's motion preference and cache frequently used page elements.
   var rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
@@ -6,11 +8,12 @@
   var links=[].slice.call(document.querySelectorAll('.links a'));
   var pars=[].slice.call(document.querySelectorAll('[data-par]'));
 
-  // Profile photo picker: resize the chosen image, show it, and remember it in local storage.
+  // Profile photo picker: shows the chosen image and remembers it in YOUR browser only (visitors will not see it).
+  // For visitors, add a real image with src in index.html instead.
   var pick=document.getElementById('pick'), pimg=document.getElementById('pimg'), slot=document.querySelector('.slot');
   function showPhoto(u){pimg.src=u;pimg.hidden=false;slot.classList.add('has');}
-  try{var sv=localStorage.getItem('photo');if(sv)showPhoto(sv);}catch(e){}
-  pick.addEventListener('change',function(){
+  try{var sv=localStorage.getItem('photo');if(sv&&pimg&&slot)showPhoto(sv);}catch(e){}
+  if(pick)pick.addEventListener('change',function(){
     var f=pick.files[0];if(!f)return;
     var fr=new FileReader();
     fr.onload=function(){
@@ -31,8 +34,8 @@
   function frame(){
     var max=root.scrollHeight-innerHeight, p=max>0?Math.min(1,Math.max(0,scrollY/max)):0;
     root.style.setProperty('--p',p.toFixed(4));
-    document.body.classList.toggle('scrolled',scrollY>80);
-    tt.classList.toggle('show',scrollY>500);
+    document.body.classList.toggle('scrolled',scrollY>80); // EDIT: pixels scrolled before the scroll cue fades out
+    tt.classList.toggle('show',scrollY>500); // EDIT: pixels scrolled before the back-to-top button appears
     if(!rm){pars.forEach(function(el){
       var r=el.parentNode.getBoundingClientRect(), c=r.top+r.height/2-innerHeight/2;
       el.style.transform='translateY('+(c*parseFloat(el.dataset.par)).toFixed(1)+'px)';
@@ -62,7 +65,7 @@
     projs.forEach(function(p){p.classList.toggle('on',p.id===b.dataset.t);});
   });});
 
-  // Hero typing effect. Change the phrase here to update the animated role text.
+  // Hero typing effect. EDIT: put your own role line inside phrases.
   var phrases=['Your role or field, in one line'];
   var out=document.getElementById('type');
   function sleep(ms){return new Promise(function(r){setTimeout(r,ms);});}
@@ -70,10 +73,10 @@
     var i=0;
     while(true){
       var t=phrases[i%phrases.length];
-      for(var k=1;k<=t.length;k++){out.textContent=t.slice(0,k);await sleep(48);}
+      for(var k=1;k<=t.length;k++){out.textContent=t.slice(0,k);await sleep(48);} // EDIT: 48 = typing speed in milliseconds per letter (higher = slower)
       return;
     }
   }
-  setTimeout(function(){document.body.classList.add('booted');},rm?0:900);
+  setTimeout(function(){document.body.classList.add('booted');},rm?0:900); // EDIT: 900 = delay in ms before the hero text fades in
   if(rm){out.textContent=phrases[0];}else{setTimeout(loop,1000);}
 })();

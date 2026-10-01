@@ -1,6 +1,8 @@
 /* 1. Design tokens and global defaults: edit these variables to change the site-wide palette and fonts. */
 :root {
-    --ml:max(min(190px,16vw),calc((100vw - 1000px)/2));
+  /* Space to the left of the page content. Keep 1000px equal to main's max-width below.
+     To lean the content more to the left, subtract a number inside calc, e.g. calc((100vw - 1000px) / 2 - 60px). */
+  --ml: max(min(190px, 16vw), calc((100vw - 1000px) / 2));
   --bg: #000;
   --fg: #ebe8e2;
   --mute: #8c8983;
@@ -28,6 +30,7 @@ html {
   scrollbar-color: var(--red) #000;
 }
 
+/* Base text: change the size (14px) or line spacing (1.85) here. */
 body {
   margin: 0;
   background: var(--bg);
@@ -40,12 +43,9 @@ a {
   color: inherit;
   text-decoration: none;
 }
-main{
-    margin-left:var(--ml);
-    padding:0 clamp(24px,6vw,96px) 0 0;
-    max-width:1000px}
 
 /* Background atmosphere, focus styles, back-to-top control, selection, scrollbar, and grain overlay. */
+/* Red glow behind the page. For a stronger or softer glow, change the two numbers 0.11 and 0.06 (higher = stronger). */
 body::before {
   content: "";
   position: fixed;
@@ -63,6 +63,7 @@ button:focus-visible {
   outline-offset: 4px;
 }
 
+/* Floating back-to-top button (script.js decides when it appears). */
 .tt {
   position: fixed;
   right: max(24px, env(safe-area-inset-right, 0px));
@@ -121,6 +122,7 @@ button:focus-visible {
   background: var(--red);
 }
 
+/* Film grain overlay. Set opacity to 0 to remove it; higher = more visible. */
 body::after {
   content: "";
   position: fixed;
@@ -131,10 +133,10 @@ body::after {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 
-/* Small animated scroll cue shown on the desktop hero. */
+/* Animated scroll cue at the bottom-left of the hero. Its HTML is commented out in index.html; uncomment it there to bring it back. */
 .cue {
   position: absolute;
-  left: calc(max(28px, env(safe-area-inset-left, 0px)) - var(--ml));bottom:36px;
+  left: calc(max(28px, env(safe-area-inset-left, 0px)) - var(--ml));
   bottom: 36px;
   display: flex;
   align-items: center;
@@ -182,7 +184,7 @@ body::after {
   opacity: 0;
 }
 
-/* Fixed section navigation and its scroll-progress indicator. */
+/* Fixed left navigation with its scroll-progress line. "left" is its distance from the screen edge. */
 .rail {
   position: fixed;
   left: max(28px, env(safe-area-inset-left, 0px));
@@ -263,12 +265,15 @@ body::after {
 }
 
 /* Shared page layout, section spacing, headings, and reveal animations. */
+/* Page column. margin-left comes from --ml (top of file) so it sits toward the centre on wide screens.
+   max-width is the column width; keep it equal to the 1000px inside --ml. */
 main {
-  margin-left: min(190px, 16vw);
+  margin-left: var(--ml);
   padding: 0 clamp(24px, 6vw, 96px) 0 0;
   max-width: 1000px;
 }
 
+/* Every section is at least one screen tall; lower 100vh for shorter sections. */
 section {
   min-height: 100vh;
   padding: clamp(96px, 16vh, 160px) 0 64px;
@@ -343,6 +348,7 @@ p b {
   justify-content: center;
 }
 
+/* Name size: the last number (112px) is the biggest it gets on large screens. */
 h1 {
   font-size: clamp(48px, 8.4vw, 112px);
   letter-spacing: -0.01em;
@@ -426,6 +432,7 @@ h1 em {
   opacity: 1;
 }
 
+/* Big faint background word. Only Contact still uses it; delete this rule and its <div> in index.html to remove it. */
 .big {
   position: absolute;
   right: -2vw;
@@ -625,6 +632,7 @@ footer {
   max-width: 52ch;
 }
 
+/* About layout: 240px photo column next to the text. Change 240px to resize the photo. */
 .about-grid {
   display: grid;
   grid-template-columns: 240px 1fr;
@@ -636,6 +644,7 @@ footer {
   margin: 0;
 }
 
+/* Photo frame (4:5 ratio). When a real <img src> is inside, the placeholder hides itself. */
 .slot {
   display: block;
   position: relative;
@@ -846,6 +855,7 @@ footer {
 }
 
 /* 4. Work section: project preview, case-study details, project switcher, and tags. */
+/* Project preview frame (16:10). Put <img src="images/..."> inside it and the placeholder hides itself. */
 .shot {
   grid-column: 1 / -1;
   position: relative;
@@ -915,6 +925,7 @@ footer {
   display: none;
 }
 
+/* Work layout: featured project on the left, 230px project list on the right. */
 .wgrid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 230px;
@@ -922,6 +933,7 @@ footer {
   align-items: start;
 }
 
+/* Only the project with class "on" is visible; script.js moves that class when you click the list. */
 .proj {
   display: none;
 }

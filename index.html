@@ -16,7 +16,7 @@
 <!-- Floating back-to-top link; its visibility and progress underline are controlled by script.js. -->
 <a class="tt" id="tt" href="#home" aria-label="Back to top"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M12 20V5M5 11l7-7 7 7"/></svg></a>
 
-<!-- Fixed section links; href/data-s values correspond to section IDs below. -->
+<!-- Left navigation. To add a section: add a link here and a <section id="..."> below with the same id (and the same word in data-s). -->
 <nav class="rail" aria-label="Sections">
   <div class="track" aria-hidden="true"><div class="fill"></div><div class="dot"></div></div>
   <div class="links">
@@ -29,7 +29,7 @@
 </nav>
 
 <main>
-  <!-- HOME: replace the example name, role, intro, links, and quick facts with your information. -->
+  <!-- HOME: replace the example name, intro, links, and quick facts. The typed line under the name is edited in script.js ("phrases"). -->
   <section id="home">
     <div class="status hero-in"><span></span>Open to opportunities</div>
     <h1><span class="mask"><span>Your Name</span></span></h1>
@@ -46,6 +46,7 @@
       <div><dt>available</dt><dd>month, year</dd></div>
       <div><dt>email</dt><dd>you@example.com</dd></div>
     </dl>
+    <!-- Optional scroll cue: remove the comment markers around the next line to show it. -->
     <!-- <div class="cue" aria-hidden="true"><span></span>scroll</div> -->
   </section>
 
@@ -55,6 +56,7 @@
     <h2><span class="mask"><span>About me</span></span></h2>
     <div class="line"></div>
     <div class="about-grid">
+      <!-- EDIT photo: for a real image change <img id="pimg" alt="Portrait" hidden> to <img id="pimg" src="images/me.jpg" alt="Portrait"> (no "hidden"). Click-to-upload only saves in your own browser. -->
       <figure class="photo">
         <label class="slot" title="Add your photo">
           <input type="file" accept="image/*" id="pick" hidden>
@@ -87,7 +89,9 @@
     </div>
   </section>
 
-  <!-- WORK: each .proj is a project card; data-t on the buttons selects the matching card ID. -->
+  <!-- WORK: each <article class="row proj"> is one project (p1 has class "on" so it shows first).
+       To add a project: copy one <article> and one <li><button> in the list on the right, and give both the same new id (p4 / data-t="p4").
+       Put your preview image inside <div class="shot">, e.g. <img src="images/project-one.jpg" alt="Project one">. -->
   <section id="work">
     <!--<div class="big" data-par="0.12" aria-hidden="true">work</div>-->
     <h2><span class="mask"><span>Selected work</span></span></h2>
@@ -129,6 +133,7 @@
 
   <!-- CONTACT: update the email, resume link, and social profile destinations. -->
   <section id="contact">
+    <!-- Big faint background word: delete this line (and the .big rule in style.css) to remove it. -->
     <div class="big" data-par="0.12" aria-hidden="true">hi</div>
     <h2><span class="mask"><span>Let's talk</span></span></h2>
     <div class="line"></div>
