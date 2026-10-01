@@ -1,5 +1,6 @@
 /* 1. Design tokens and global defaults: edit these variables to change the site-wide palette and fonts. */
 :root {
+    --ml:max(min(190px,16vw),calc((100vw - 1000px)/2));
   --bg: #000;
   --fg: #ebe8e2;
   --mute: #8c8983;
@@ -39,6 +40,10 @@ a {
   color: inherit;
   text-decoration: none;
 }
+main{
+    margin-left:var(--ml);
+    padding:0 clamp(24px,6vw,96px) 0 0;
+    max-width:1000px}
 
 /* Background atmosphere, focus styles, back-to-top control, selection, scrollbar, and grain overlay. */
 body::before {
@@ -129,7 +134,7 @@ body::after {
 /* Small animated scroll cue shown on the desktop hero. */
 .cue {
   position: absolute;
-  left: calc(max(28px, env(safe-area-inset-left, 0px)) - min(190px, 16vw));
+  left: calc(max(28px, env(safe-area-inset-left, 0px)) - var(--ml));bottom:36px;
   bottom: 36px;
   display: flex;
   align-items: center;
